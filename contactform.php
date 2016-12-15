@@ -1,4 +1,10 @@
 <?
+/*****
+        Desarrollado por =  info@galusdev.com
+		Material de Consulta = https://webdesign.tutsplus.com/es/tutorials/how-to-integrate-no-captcha-recaptcha-in-your-website--cms-23024
+		Programador = Gustatitus
+		Libreria reCaptcha by Copyright (c) 2014, Google Inc.    
+*****/
 require_once "includes/recapchalib.php";
 
 // tu clave secreta
@@ -82,7 +88,7 @@ $reCaptcha = new ReCaptcha($secret);
 
         <spam style="color:red">
         <?
-            if ($_GET['alerta'] == 'cincorrecto'){ echo "El código ingresa es incorrecto"; }
+            if ($_GET['alerta'] == 'cincorrecto'){ echo "Por favor complete el Captcha!"; }
         ?>
         </spam>
         <br>
