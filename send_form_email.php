@@ -1,5 +1,8 @@
 <?php
 include 'includes/validardatosemail.php';
+require_once "includes/recapchalib.php";
+
+//Validar datos de cabecera
 
 ValidarDatos($_POST['nomape']);
 
@@ -8,6 +11,29 @@ ValidarDatos($_POST["email"]);
 ValidarDatos($_POST["tel"]);
 
 ValidarDatos($_POST["mensaje"]);
+
+ValidarDatos($_POST["empresa"]);
+
+ValidarDatos($_POST["web"]);
+
+    $nomape = $_POST['nomape'];
+
+    $email_from = $_POST['email'];
+ 
+    $tel = $_POST['tel']; 
+
+    $mensaje = $_POST['mensaje'];
+
+    $empresa = $_POST['empresa'];
+
+    $web = $_POST['web'];
+
+// Control del Captcha, si el captcha es incorrecto devuelve junto con un alerta en GET
+
+ if ($_POST["g-recaptcha-response"] == "") { 
+         $alerta = 'cincorrecto'; header("Location: contactform.php?alerta=$alerta&nomape=$nomape&email=$email_from&tel=$tel&mensaje=$mensaje&empresa=$empresa&web=$web");           
+            }
+ else {
 
 if(isset($_POST['email'])) {
  
@@ -33,7 +59,7 @@ if(isset($_POST['email'])) {
  
     // Se valida que los campos del formulairo estén llenos
  
-    if( !isset($_POST['nomape']) || !isset($_POST['email']) || !isset($_POST['tel']) ) 
+    if( !isset($_POST['nomape']) || !isset($_POST['email']) || !isset($_POST['tel']) || !isset($_POST['mensaje']) ) 
       { died('Lo sentimos pero parece haber un problema con los datos enviados.'); }
 
  //En esta parte el valor "nomape" nos sirve para crear las variables que recolectaran la información de cada campo
@@ -45,6 +71,10 @@ if(isset($_POST['email'])) {
     $tel = $_POST['tel']; // no requerido 
 
     $mensaje = $_POST['mensaje']; // requerido
+
+    $empresa = $_POST['empresa']; // no requerido 
+
+    $web = $_POST['web']; // no requerido 
  
     $error_message = "Error";
 
@@ -101,6 +131,10 @@ if(isset($_POST['email'])) {
     $email_message .= "Teléfono: ".clean_string($tel)."\n";
  
     $email_message .= "Mensaje: ".clean_string($mensaje)."\n";
+
+    $email_message .= "Empresa: ".clean_string($empresa)."\n";
+
+    $email_message .= "Sitio Web: ".clean_string($web)."\n";
   
  
 //Se crean los encabezados del correo
@@ -124,5 +158,5 @@ Gracias! Nos pondremos en contacto contigo a la brevedad
 <?php
  
 }
- 
+} 
 ?>

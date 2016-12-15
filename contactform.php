@@ -1,19 +1,14 @@
 <?
-/* Sistema de Captcha
-$DesdeLetra = "A";
-$HastaLetra = "Z";
-$DesdeNumero = 0000000000;
-$HastaNumero = 9999999999;
+require_once "includes/recapchalib.php";
+
+// tu clave secreta
+$secret = "6Lemzw4UAAAAAOgjZUd83aHgR0ew1d6o8kgaZbHC";
  
-$letraAleatoriaA = chr(rand(ord($DesdeLetra), ord($HastaLetra)));
-$letraAleatoriaB = chr(rand(ord($DesdeLetra), ord($HastaLetra)));
-$letraAleatoriaC = chr(rand(ord($DesdeLetra), ord($HastaLetra)));
-$numeroAleatorio = rand($DesdeNumero, $HastaNumero);
-
-$codigoverificacion = $letraAleatoriaA.$letraAleatoriaB.$letraAleatoriaC.$numeroAleatorio;
-
-echo $codigoverificacion;
-*/
+// respuesta vacía
+$response = null;
+ 
+// comprueba la clave secreta
+$reCaptcha = new ReCaptcha($secret);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,8 +17,9 @@ echo $codigoverificacion;
     <title></title>
 </head>
 
+<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+
 <body>
-        
         <form name="contactform" method="post" action="send_form_email.php"> 
         <table width="450px"><!---Este tamaño en px es personalizable -->
         <tr>
@@ -31,7 +27,16 @@ echo $codigoverificacion;
                     <label for="name_ape">Nombre y Apellido *</label>
             </td>
             <td valign="top">
-            <input  type="text" name="nomape" maxlength="50" size="30" required="required">
+            <input  type="text" name="nomape" maxlength="50" size="30" required="required" value="<?php echo $_GET['nomape'];?>">
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                    <label for="empre">Empresa </label>
+            </td>
+            <td valign="top">
+            <input  type="text" name="empresa" maxlength="50" size="30" value="<?php echo $_GET['empresa'];?>">
             </td>
         </tr>
 
@@ -40,15 +45,25 @@ echo $codigoverificacion;
                    <label for="email">E-mail *</label>
             </td>
         <td valign="top">
-                   <input  name="email" type="email" required="required" maxlength="80" size="30">
+                   <input  name="email" type="email" required="required" maxlength="80" size="30" value="<?php echo $_GET['email'];?>">
         </td>
         </tr>
+
+        <tr>
+            <td valign="top">
+                    <label for="empre">Sitio Web </label>
+            </td>
+            <td valign="top">
+            <input  type="text" name="web" maxlength="50" size="30" value="<?php echo $_GET['web'];?>">
+            </td>
+        </tr>
+
         <tr>
             <td valign="top">
                     <label for="telephone">Teléfono *</label>
             </td>
             <td valign="top">
-                    <input  type="text" name="tel" maxlength="30" required="required"  size="30">
+                    <input  type="text" name="tel" maxlength="30" required="required"  size="30" value="<?php echo $_GET['tel'];?>">
             </td>
         </tr>
         <tr>
@@ -56,17 +71,30 @@ echo $codigoverificacion;
                     <label for="message">Mensaje *</label>
             </td>
         <td valign="top">
-                    <textarea  name="mensaje" maxlength="1000" cols="25" rows="6" required="required"></textarea>
+                    <textarea  name="mensaje" maxlength="1000" cols="25" rows="6" required="required"><?php echo $_GET['mensaje'];?></textarea>
         </td>
         </tr>
-        <tr>
+        <tr>    
+
         <td colspan="2" style="text-align:center">
-            <input type="submit" value="Enviar">
+
+        <div class="g-recaptcha" data-sitekey="6Lemzw4UAAAAAOgjZUd83aHgR0ew1d6o8kgaZbHC"></div>
+
+        <spam style="color:red">
+        <?
+            if ($_GET['alerta'] == 'cincorrecto'){ echo "El código ingresa es incorrecto"; }
+        ?>
+        </spam>
+        <br>
+
+        <input type="submit" value="Enviar">
+
         </td>
         </tr>
         </table>
+                    
         </form>
-        
+
         <footer>
             <p>Derechos reservados</p>
             <p>info@galusdev.com</p>
