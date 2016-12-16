@@ -1,6 +1,5 @@
 <?php
 include 'includes/validardatosemail.php';
-require_once "includes/recapchalib.php";
 
 //Validar datos de cabecera
 
@@ -16,18 +15,20 @@ ValidarDatos($_POST["empresa"]);
 
 ValidarDatos($_POST["web"]);
 
-    $nomape = $_POST['nomape'];
+//En esta parte el valor "nomape" nos sirve para crear las variables que recolectaran la información de cada campo
+    
+    $nomape = $_POST['nomape']; // requerido
 
-    $email_from = $_POST['email'];
+    $email_from = $_POST['email']; // requerido
  
-    $tel = $_POST['tel']; 
+    $tel = $_POST['tel']; // no requerido 
 
-    $mensaje = $_POST['mensaje'];
+    $mensaje = $_POST['mensaje']; // requerido
 
-    $empresa = $_POST['empresa'];
+    $empresa = $_POST['empresa']; // no requerido 
 
-    $web = $_POST['web'];
-
+    $web = $_POST['web']; // no requerido 
+    
 // Control del Captcha, si el captcha es incorrecto devuelve junto con un alerta en GET
 
  if ($_POST["g-recaptcha-response"] == "") { 
@@ -39,7 +40,7 @@ if(isset($_POST['email'])) {
  
     // Edita las dos líneas siguientes con tu dirección de correo y asunto personalizados
  
-    $email_to = "gus.ace@gmail.com";
+    $email_to = "tucorreo@gmail.com";
  
     $email_subject = "Mensaje de cliente";   
  
@@ -62,21 +63,7 @@ if(isset($_POST['email'])) {
     if( !isset($_POST['nomape']) || !isset($_POST['email']) || !isset($_POST['tel']) || !isset($_POST['mensaje']) ) 
       { died('Lo sentimos pero parece haber un problema con los datos enviados.'); }
 
- //En esta parte el valor "nomape" nos sirve para crear las variables que recolectaran la información de cada campo
-    
-    $nomape = $_POST['nomape']; // requerido
-
-    $email_from = $_POST['email']; // requerido
- 
-    $tel = $_POST['tel']; // no requerido 
-
-    $mensaje = $_POST['mensaje']; // requerido
-
-    $empresa = $_POST['empresa']; // no requerido 
-
-    $web = $_POST['web']; // no requerido 
- 
-    $error_message = "Error";
+     $error_message = "Error";
 
 //En esta parte se verifica que la dirección de correo sea válida 
     

@@ -3,12 +3,13 @@
         Desarrollado por =  info@galusdev.com
 		Material de Consulta = https://webdesign.tutsplus.com/es/tutorials/how-to-integrate-no-captcha-recaptcha-in-your-website--cms-23024
 		Programador = Gustatitus
-		Libreria reCaptcha by Copyright (c) 2014, Google Inc.    
+		Libreria reCaptcha by Copyright (c) 2014, Google Inc. 
+        linea 87 captcha y linea 12 clave secreta de google.   
 *****/
 require_once "includes/recapchalib.php";
 
 // tu clave secreta
-$secret = "6Lemzw4UAAAAAOgjZUd83aHgR0ew1d6o8kgaZbHC";
+$secret = "";
  
 // respuesta vacía
 $response = null;
@@ -84,7 +85,7 @@ $reCaptcha = new ReCaptcha($secret);
 
         <td colspan="2" style="text-align:center">
 
-        <div class="g-recaptcha" data-sitekey="6Lemzw4UAAAAAOgjZUd83aHgR0ew1d6o8kgaZbHC"></div>
+        <div class="g-recaptcha" data-sitekey=""></div>
 
         <spam style="color:red">
         <?
